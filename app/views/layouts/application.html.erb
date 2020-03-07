@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Zad2</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+
+  </head>
+
+  <body>
+  <head>
+    <script type="text/javascript">
+        checked=false;
+        function checkedAll (frm1) {
+            var aa= document.getElementById('frm1');
+            if (checked == false){
+                checked = true
+            }
+            else{
+                checked = false
+            }
+            for (var i =0; i < aa.elements.length; i++){
+                aa.elements[i].checked = checked;
+            }
+        }
+    </script>
+  </head>
+
+  <!--notif -->
+  <%= render 'main/notifications' %>
+  <html lang="en">
+  <% if user_signed_in? %>
+    <h3>Welcome, <%= current_user.email %></h3>
+    <table>
+      <div class="btn-toolbar">
+        <div class="btn-group">
+          <button class="btn" >Delete</button>
+          <button class="btn" data-original-title="Italic - Ctrl+I">Block</button>
+          <button class="btn" data-original-title="List">Unblock</button>
+        </div>
+      </div>
+<form id="frm1">
+    <table class="table">
+      <thead class="thead-dark">
+      <tr>
+        <th><input type="checkbox" name="checkall" onclick="checkedAll(frm1)" /></th>
+        <th>Delete</th>
+        <th scope="col">ID</th>
+        <th scope="col">Email</th>
+        <th scope="col">Name</th>
+        <th scope="col">Creation time</th>
+        <th scope="col">Last login</th>
+        <th scope="col">Status(Online/Offline)</th>
+      </tr>
+      </thead>
+      </head>
+      <body>
+      <tbody>
+      <% @users.each do |user| %>
+      <tr>
+        <td><input type="checkbox" name="foo" value="bar1"/></td>
+        <td><%= link_to "delete", user, method: :delete %></td>
+        <td><%= user.id%></td>
+        <td><%= user.email %></td>
+        <td><%= user.firstname %>></td>
+        <td><%= user.created_at %></td>
+        <td><%= user.updated_at  %></td>
+        <td><%= user.online? %></td>
+      </tr>
+      <% end %>
+      </tbody>
+    </table>
+</form>
+      <%= link_to 'Log out', destroy_user_session_path, method: :delete %>
+  <% else %>
+    <div style="display:flex;justify-content:center;align-items:center;">
+      <%= link_to 'Sign up', new_user_registration_path %></div>
+      <div style="display:flex;justify-content:center;align-items:center;">
+        <%= link_to 'Sign in', new_user_session_path %></div>
+    <% end %>
+    <%= yield %></body>
+  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+</html>
